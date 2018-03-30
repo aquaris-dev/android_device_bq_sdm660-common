@@ -872,14 +872,14 @@ service qcom-post-boot /vendor/bin/init.qcom.post_boot.sh
     disabled
     oneshot
 
-service atfwd /vendor/bin/ATFWD-daemon
+service vendor.atfwd /vendor/bin/ATFWD-daemon
     class late_start
     user system
     group system radio
     disabled
 
-on property:persist.radio.atfwd.start=true
-    start atfwd
+on property:persist.vendor.radio.atfwd.start=true
+    start vendor.atfwd
 
 service hostapd_fst /vendor/bin/hostapd -dd -g /data/vendor/wifi/hostapd/global /data/misc/wifi/hostapd.conf
     class late_start
