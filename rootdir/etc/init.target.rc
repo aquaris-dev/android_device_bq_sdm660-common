@@ -70,6 +70,9 @@ on boot
 #Load WLAN driver
    setprop wlan.driver.status "ok"
 
+#Create folder dump yuv images while debugging
+    mkdir /data/vendor/camera 0770 camera camera
+
 #Peripheral manager
 service vendor.per_mgr /vendor/bin/pm-service
     class core
