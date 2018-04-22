@@ -58,7 +58,7 @@ on post-fs-data
     mkdir /data/misc/tloc 0700 system drmrpc
 
 on boot
-    start rmt_storage
+    start vendor.rmt_storage
     write /dev/cpuset/top-app/cpus 0-7
     write /dev/cpuset/foreground/cpus 0-7
     write /dev/cpuset/foreground/boost/cpus 0-7
