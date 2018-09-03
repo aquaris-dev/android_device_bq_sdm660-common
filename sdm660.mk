@@ -187,8 +187,10 @@ PRODUCT_PACKAGES += \
     init.bq.rc \
     init.target.rc \
     init.zangya.usb.rc \
+    init.class_main.sh \
     init.qcom.devstart.sh \
     init.qcom.power.sh \
+    init.qcom.early_bost.sh \
     init.qcom.post_boot.sh \
     init.qcom.sensors.sh \
     init.qcom.sh \
