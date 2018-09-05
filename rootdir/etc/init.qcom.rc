@@ -486,12 +486,6 @@ on property:persist.debug.trace=1
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd
 
-on property:bluetooth.sap.status=running
-    start bt-sap
-
-on property:bluetooth.sap.status=stopped
-    stop bt-sap
-
 on property:bluetooth.dun.status=running
     start bt-dun
 
@@ -571,13 +565,6 @@ service bt-dun /system/bin/dun-server /dev/smd7 /dev/rfcomm0
     disabled
     oneshot
 
-service bt-sap /system/bin/sapd 15
-    user bluetooth
-    group bluetooth net_bt_admin
-    class late_start
-    disabled
-    oneshot
-
 service btsnoop /system/bin/btsnoop
    user bluetooth
    group bluetooth net_bt_admin sdcard_rw sdcard_r media_rw
@@ -605,12 +592,6 @@ service port-bridge /system/vendor/bin/port-bridge
     group radio system inet
     disabled
     oneshot
-
-service qmiproxy /system/bin/qmiproxy
-    class main
-    user radio
-    group radio diag
-    disabled
 
 # QMUX must be in multiple groups to support external process connections
 service qmuxd /system/vendor/bin/qmuxd
@@ -778,13 +759,6 @@ service ptt_ffbm /system/vendor/bin/ptt_socket_app -f -d
     disabled
     oneshot
 
-service wifi_ftmd /system/vendor/bin/wifi_ftmd
-    user system
-    group system inet net_admin
-    socket wififtmd_server dgram 0660 system system
-    disabled
-    oneshot
-
 on property:wifi.ftmd.load=true
     insmod /system/lib/modules/pronto/pronto_wlan.ko con_mode=5
 
@@ -924,22 +898,9 @@ service vendor.wigig_hostapd /vendor/bin/hostapd -dd /data/vendor/wifi/wigig_hos
     oneshot
     disabled
 
-service ims_regmanager /system/vendor/bin/exe-ims-regmanagerprocessnative
-    class late_start
-    group net_bt_admin inet radio wifi
-    disabled
-
-on property:persist.ims.regmanager.mode=1
-    start ims_regmanager
-
 on property:ro.data.large_tcp_window_size=true
     # Adjust socket buffer to enlarge TCP receive window for high bandwidth (e.g. DO-RevB)
     write /proc/sys/net/ipv4/tcp_adv_win_scale  2
-
-service battery_monitor /system/bin/battery_monitor
-    user system
-    group system
-    disabled
 
 service ril-daemon2 /vendor/bin/hw/rild -c 2
     class main
@@ -958,12 +919,6 @@ service ril-daemon3 /vendor/bin/hw/rild -c 3
     disabled
     group radio cache inet misc audio sdcard_r sdcard_rw diag oem_2901 log
     capabilities BLOCK_SUSPEND NET_ADMIN NET_RAW
-
-service profiler_daemon /system/bin/profiler_daemon
-    class late_start
-    user root
-    group root
-    disabled
 
 service charger /charger
     class charger
@@ -986,11 +941,6 @@ on property:persist.usb.hvdcp.detect=true
 
 on property:persist.usb.hvdcp.detect=false
     stop hvdcp
-
-service charger_monitor /system/bin/charger_monitor
-    user root
-    group root
-    disabled
 
 service qbcharger /charger -m 1
     disabled
@@ -1068,14 +1018,6 @@ on charger
     setprop persist.sys.usb.config mass_storage
     load_system_props
     start qcom-post-boot
-
-#add poweroffhandler
-service poweroffhandler /system/vendor/bin/poweroffhandler
-    class core
-    user media
-    group graphics audio
-    disabled
-    oneshot
 
 on property:init.svc.surfaceflinger=restarting
     stop hwcomposer-2-1
