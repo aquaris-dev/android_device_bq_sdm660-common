@@ -70,8 +70,8 @@ on boot
     chmod 0644          /dev/goodix_fp
 
 #Load WLAN driver
-   insmod /vendor/lib/modules/qca_cld3/qca_cld3_wlan.ko
-   setprop wlan.driver.status "ok"
+ #  insmod /vendor/lib/modules/qca_cld3/qca_cld3_wlan.ko
+#   setprop wlan.driver.status "ok"
 
 #Peripheral manager
 service per_mgr /system/vendor/bin/pm-service
@@ -203,3 +203,4 @@ service smcinvoked /system/bin/smcinvoked
    class main
    user system
    group system
+
