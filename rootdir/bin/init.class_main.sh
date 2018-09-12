@@ -33,8 +33,6 @@
 baseband=`getprop ro.baseband`
 datamode=`getprop persist.data.mode`
 
-start qmuxd
-
 start ipacm-diag
 start ipacm
 

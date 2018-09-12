@@ -568,11 +568,6 @@ on property:bluetooth.startbtlogger=true
 on property:bluetooth.startbtlogger=false
     stop bt_logger
 
-service qcom-c_core-sh  /vendor/bin/init.qcom.class_core.sh
-    class core
-    user root
-    oneshot
-
 service qcom-c_main-sh /vendor/bin/init.class_main.sh
     class main
     user root
@@ -653,13 +648,6 @@ service port-bridge /system/vendor/bin/port-bridge
     group radio system inet
     disabled
     oneshot
-
-# QMUX must be in multiple groups to support external process connections
-service qmuxd /system/vendor/bin/qmuxd
-    class main
-    user root
-    group radio audio bluetooth gps nfc diag
-    disabled
 
 service netmgrd /system/vendor/bin/netmgrd
     class main
@@ -778,36 +766,6 @@ on property:persist.vendor.wigig.enable=1
 on property:persist.vendor.wigig.npt.enable=1
     start wigignpt
 
-service dhcpcd_wlan0 /system/bin/dhcpcd -ABKLG
-    class late_start
-    disabled
-    oneshot
-
-service dhcpcd_bond0 /system/bin/dhcpcd -ABKLG
-    class late_start
-    disabled
-    oneshot
-
-service dhcpcd_p2p /system/bin/dhcpcd -ABKLG
-    class late_start
-    disabled
-    oneshot
-
-service iprenew_wlan0 /system/bin/dhcpcd -n
-    class late_start
-    disabled
-    oneshot
-
-service iprenew_bond0 /system/bin/dhcpcd -n
-    class late_start
-    disabled
-    oneshot
-
-service iprenew_p2p /system/bin/dhcpcd -n
-    class late_start
-    disabled
-    oneshot
-
 service ptt_socket_app /system/vendor/bin/ptt_socket_app -d
     class main
     user root
@@ -923,11 +881,6 @@ service wifi-crda /vendor/bin/init.crda.sh
    disabled
    oneshot
 
-service qvop-daemon /vendor/bin/qvop-daemon
-    class late_start
-    user system
-    group system drmrpc
-
 service atfwd /vendor/bin/ATFWD-daemon
     class late_start
     user system
@@ -959,15 +912,6 @@ service ril-daemon2 /vendor/bin/hw/rild -c 2
     class main
     socket rild2 stream 660 root radio
     socket rild-debug2 stream 660 radio system
-    user radio
-    disabled
-    group radio cache inet misc audio sdcard_r sdcard_rw diag oem_2901 log
-    capabilities BLOCK_SUSPEND NET_ADMIN NET_RAW
-
-service ril-daemon3 /vendor/bin/hw/rild -c 3
-    class main
-    socket rild3 stream 660 root radio
-    socket rild-debug3 stream 660 radio system
     user radio
     disabled
     group radio cache inet misc audio sdcard_r sdcard_rw diag oem_2901 log
@@ -1011,12 +955,6 @@ service vm_bms /vendor/bin/vm_bms
     disabled
 
 service vendor.msm_irqbalance /vendor/bin/msm_irqbalance -f /system/vendor/etc/msm_irqbalance.conf
-    class core
-    user root
-    group root
-    disabled
-
-service vendor.msm_irqbal_lb /vendor/bin/msm_irqbalance -f /system/vendor/etc/msm_irqbalance_little_big.conf
     class core
     user root
     group root
@@ -1069,19 +1007,9 @@ service time_daemon /system/vendor/bin/time_daemon
     user root
     group root
 
-service qdmastatsd /system/vendor/bin/qdmastatsd
-    class late_start
-    user system
-    group readproc system net_bw_stats radio
-
 # Set vendor-ril lib path based on Meta version
 on property:vendor.rild.libpath=*
     setprop rild.libpath ${vendor.rild.libpath}
-
-service seemp_healthd /vendor/bin/seemp_healthd
-    class late_start
-    user system
-    group system
 
 service power_off_alarm /vendor/bin/power_off_alarm
     class core

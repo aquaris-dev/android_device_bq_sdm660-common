@@ -183,12 +183,6 @@ on charger
     setprop sys.usb.configfs 1
     start power_off_alarm
 
-service seempd /system/bin/seempd
-    class late_start
-    user system
-    group system sdcard_rw
-    socket seempdw dgram 0666 system system
-
 service qfp-daemon /vendor/bin/qfp-daemon
     class late_start
     user system
