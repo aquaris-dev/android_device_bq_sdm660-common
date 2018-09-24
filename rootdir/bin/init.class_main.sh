@@ -38,10 +38,10 @@ start qmuxd
 start ipacm-diag
 start ipacm
 
-    start ril-daemon2
-        start qti
-        start netmgrd
-        start port-bridge
+start ril-daemon2
+start qti
+start netmgrd
+start port-bridge
 
 #
 # Allow persistent faking of bms
