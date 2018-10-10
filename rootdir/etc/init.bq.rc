@@ -48,7 +48,9 @@ on boot
     chown system system /sys/class/leds/red/start_idx
     chown system system /sys/class/leds/blue/start_idx
     chown system system /sys/class/leds/green/start_idx
-
+    chown system system /sys/class/leds/red/ramp_step_ms
+    chown system system /sys/class/leds/blue/ramp_step_ms
+    chown system system /sys/class/leds/green/ramp_step_ms
 
 #add for wifi sar --start
 service wifisarnear /vendor/bin/wifisarnear
