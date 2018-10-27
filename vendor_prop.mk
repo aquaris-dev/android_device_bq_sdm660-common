@@ -54,6 +54,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     vendor.camera.aux.packagelist="org.codeaurora.snapcam,com.bq.camerabq,com.bq.camerabq.debug,org.lineageos.snap" \
     vidc.enc.dcvs.extra-buff-count=2 \
+    persist.camera.customer.config=zangya_camera.xml \
     persist.camera.exif.rotation=off \
     persist.camera.hvx.rotation=1 \
     persist.camera.imglib.usefdlite=1 \
@@ -73,10 +74,30 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.frp.pst=/dev/block/bootdevice/by-name/frp
 
+# IMS
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.dbg.volte_avail_ovr=0 \
+    persist.dbg.allow_ims_off=0 \
+    persist.ims.enableADBLogs=1 \
+    persist.ims.enableDebugLogs=1 \
+    persist.radio.calls.on.ims=true \
+    persist.radio.vrte_logic=1 \
+    persist.radio.jbims=1 \
+    persist.radio.domain.ps=false \
+    persist.radio.VT_HYBRID_ENABLE=1 \
+    persist.dbg.vt_avail_ovr=0 \
+    persist.radio.videopause.mode=1 \
+    persist.radio.ROTATION_ENABLE=1 \
+    persist.radio.RATE_ADAPT_ENABLE=1 \
+    persist.dbg.wfc_avail_ovr=0 \
+    persist.data.iwlan.enable=true
+
 # NFC
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.nfc.smartcard.config=SIM1 \
     ro.nfc.port=I2C
+
+# dalvik.vm.heapstartsize=8m
 
 # Perf
 PRODUCT_PROPERTY_OVERRIDES += \
