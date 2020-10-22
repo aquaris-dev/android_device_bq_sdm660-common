@@ -355,9 +355,6 @@ PRODUCT_BOOT_JARS += \
 PRODUCT_PROPERTY_OVERRIDES += \
     net.tethering.noprovisioning=true
 
-# Treble
-PRODUCT_USE_VNDK_OVERRIDE := false
-
 # TextClassifier
 PRODUCT_PACKAGES += \
     textclassifier.bundle1
@@ -388,13 +385,6 @@ $(call inherit-product, build/target/product/verity.mk)
 # Vibrator
 PRODUCT_PACKAGES += \
     android.hardware.vibrator@1.1-service.sdm660-common
-
-# VNDK
-# Update this list with what each blob is actually for
-# libstdc++: hexagon DSP blobs
-PRODUCT_PACKAGES += \
-    libstdc++.vendor \
-    vndk-sp
 
 # Wi-Fi
 PRODUCT_COPY_FILES += \
