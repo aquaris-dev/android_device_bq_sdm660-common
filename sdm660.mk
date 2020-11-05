@@ -239,8 +239,6 @@ PRODUCT_COPY_FILES += \
 
 # Network
 PRODUCT_PACKAGES += \
-    android.system.net.netd@1.0 \
-    libandroid_net \
     netutils-wrapper-1.0
 
 # NFC
@@ -320,7 +318,6 @@ PRODUCT_COPY_FILES += \
     device/bq/sdm660-common/configs/qti_whitelist.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/sysconfig/qti_whitelist.xml \
     device/bq/sdm660-common/configs/telephony_product_privapp-permissions-qti.xml:$(TARGET_COPY_OUT_SYSTEM)/product/etc/permissions/telephony_product_privapp-permissions-qti.xml
 
-
 # QMI
 PRODUCT_PACKAGES += \
     libjson
@@ -335,14 +332,35 @@ PRODUCT_PACKAGES += \
     qti_telephony_utils.xml
 
 # Radio
-PRODUCT_PACKAGES += \
-    android.hardware.radio@1.4 \
-    android.hardware.radio@1.2 \
-    android.hardware.radio.config@1.0 \
-    android.hardware.secure_element@1.0 \
-    librmnetctl \
-    libprotobuf-cpp-full \
-    rild
+RADIO := android.hardware.radio@1.0
+RADIO += android.hardware.radio@1.1
+RADIO += android.hardware.radio@1.2
+RADIO += android.hardware.radio@1.3
+RADIO += android.hardware.radio@1.4
+RADIO += android.hardware.radio.config@1.0
+RADIO += android.hardware.secure_element@1.0
+RADIO += libprotobuf-cpp-full
+RADIO += librmnetctl
+
+PRODUCT_PACKAGES += $(RADIO)
+
+# GNSS
+# GNSS := android.hardware.gnss@1.0-impl-qti
+# GNSS += android.hardware.gnss@1.0-service-qti
+# GNSS += android.hardware.gnss@1.1-impl-qti
+# GNSS += android.hardware.gnss@1.1-service-qti
+# GNSS += android.hardware.gnss@2.0-impl-qti
+# GNSS += android.hardware.gnss@2.0-service-qti
+GNSS := gps.conf
+GNSS += flp.conf
+# GNSS += libgnss
+# GNSS += libgnsspps
+# GNSS += libgps.utils
+# GNSS += liblocation_api
+# GNSS += libloc_api_v02
+# GNSS += libloc_core
+
+PRODUCT_PACKAGES += $(GNSS)
 
 # RCS
 PRODUCT_PACKAGES += \
