@@ -52,10 +52,14 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.audio@2.0-impl \
     android.hardware.audio@4.0-impl \
+    android.hardware.audio@5.0-impl \
     android.hardware.audio@2.0-service \
     android.hardware.audio.effect@2.0-impl \
     android.hardware.audio.effect@4.0-impl \
+    android.hardware.audio.effect@5.0-impl \
     android.hardware.audio.effect@2.0-service \
+    android.hardware.soundtrigger@2.1-impl \
+    android.hardware.soundtrigger@2.1-service \
     audio.a2dp.default \
     audio.primary.sdm660 \
     audio.r_submix.default \
@@ -86,18 +90,20 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.boot@1.0-impl \
     android.hardware.boot@1.0-service \
+    android.hardware.boot@1.0-impl.recovery \
     bootctrl.sdm660 \
+    bootctrl.sdm660.recovery
 
 PRODUCT_PACKAGES_DEBUG += \
     bootctl
 
-PRODUCT_STATIC_BOOT_CONTROL_HAL := \
-    bootctrl.sdm660 \
-    libgptutils \
-    libcutils \
-    libz
-
 # Bluetooth
+PRODUCT_PACKAGES += \
+    android.hardware.bluetooth@1.0 \
+    audio.bluetooth.default \
+    android.hardware.bluetooth.audio@2.0-impl \
+    vendor.qti.hardware.btconfigstore@1.0.vendor
+    
 PRODUCT_PACKAGES += \
     libbthost_if
 
@@ -141,6 +147,7 @@ PRODUCT_PACKAGES += \
     android.hardware.drm@1.0-impl \
     android.hardware.drm@1.0-service \
     android.hardware.drm@1.1-service.clearkey \
+    android.hardware.drm@1.2-service.clearkey \
     move_widevine_data.sh
 
 # Display
@@ -149,7 +156,7 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@2.0-service \
     android.hardware.graphics.composer@2.1-impl \
     android.hardware.graphics.composer@2.1-service \
-    android.hardware.graphics.mapper@2.0-impl \
+    android.hardware.graphics.mapper@2.0-impl-2.1 \
     android.hardware.memtrack@1.0-impl \
     android.hardware.memtrack@1.0-service \
     copybit.sdm660 \
@@ -166,13 +173,23 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     device/bq/sdm660-common/rootdir/etc/init.qti.qseecomd.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.qti.qseecomd.sh
 
+# Fingerprint
+PRODUCT_PACKAGES += \
+    android.hardware.biometrics.fingerprint@2.1 \
+    android.hardware.biometrics.fingerprint@2.1-service
+
+# Gatekeeper
+PRODUCT_PACKAGES += \
+    android.hardware.gatekeeper@1.0-impl \
+    android.hardware.gatekeeper@1.0-service
+
 # Health
 PRODUCT_PACKAGES += \
     android.hardware.health@2.0-impl \
     android.hardware.health@2.0-service
 
-# Fingerprint
-PRODUCT_PACKAGES += \
+# Fingerprint	
+PRODUCT_PACKAGES += \	
     android.hardware.biometrics.fingerprint@2.1
 
 # HIDL
@@ -180,11 +197,20 @@ PRODUCT_PACKAGES += \
     android.hidl.base@1.0 \
     android.hidl.base@1.0_system \
     android.hidl.manager@1.0 \
-    android.hidl.manager@1.0-java
+    android.hidl.manager@1.0_system
 
 # IMS
 PRODUCT_PACKAGES += \
     ims-ext-common
+
+# HW crypto
+PRODUCT_PACKAGES += \
+    vendor.qti.hardware.cryptfshw@1.0-service-qti.qsee
+
+# Keymaster
+PRODUCT_PACKAGES += \
+    android.hardware.keymaster@3.0-impl \
+    android.hardware.keymaster@3.0-service
 
 # Init
 PRODUCT_PACKAGES += \
@@ -228,11 +254,13 @@ PRODUCT_COPY_FILES += \
 
 # Network
 PRODUCT_PACKAGES += \
+    android.system.net.netd@1.0 \
+    libandroid_net \
     netutils-wrapper-1.0
 
 # NFC
 PRODUCT_PACKAGES += \
-    android.hardware.nfc@1.1-service \
+    android.hardware.nfc@1.2-service \
     com.android.nfc_extras \
     NfcNci \
     SecureElement \
@@ -298,7 +326,7 @@ PRODUCT_COPY_FILES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power@1.1-service-qti
+    android.hardware.power@1.2-service-qti
 
 # QCOM
 PRODUCT_COPY_FILES += \
@@ -310,12 +338,24 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     libjson
 
+# QTI
+PRODUCT_PACKAGES += \
+    libqti_vndfwk_detect \
+    libqti_vndfwk_detect.vendor \
+    qti-telephony-hidl-wrapper \
+    qti_telephony_hidl_wrapper.xml \
+    qti-telephony-utils \
+    qti_telephony_utils.xml
+
 # Radio
 PRODUCT_PACKAGES += \
+    android.hardware.radio@1.4 \
     android.hardware.radio@1.2 \
     android.hardware.radio.config@1.0 \
     android.hardware.secure_element@1.0 \
-    librmnetctl
+    librmnetctl \
+    libprotobuf-cpp-full \
+    rild
 
 # RCS
 PRODUCT_PACKAGES += \
@@ -344,6 +384,16 @@ PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-service \
     libsensorndkbridge
 
+# Soong namespaces
+PRODUCT_SOONG_NAMESPACES += \
+    device/bq/sdm660-common
+
+# Thermal
+PRODUCT_PACKAGES += \
+    android.hardware.thermal@1.0-impl \
+    android.hardware.thermal@1.0-service \
+    thermal.sdm660
+
 # Telephony
 PRODUCT_PACKAGES += \
     telephony-ext
@@ -365,7 +415,6 @@ PRODUCT_PACKAGES += \
 
 # Update engine
 PRODUCT_PACKAGES += \
-    brillo_update_payload \
     update_engine \
     update_engine_sideload \
     update_verifier
@@ -384,7 +433,8 @@ $(call inherit-product, build/target/product/verity.mk)
 
 # Vibrator
 PRODUCT_PACKAGES += \
-    android.hardware.vibrator@1.1-service.sdm660-common
+    android.hardware.vibrator@1.0-impl \
+    android.hardware.vibrator@1.0-service
 
 # Wi-Fi
 PRODUCT_COPY_FILES += \
@@ -399,7 +449,9 @@ PRODUCT_PACKAGES += \
     hostapd_cli \
     libqsap_sdk \
     libQWiFiSoftApCfg \
+    libwifi-hal-ctrl \
     libwifi-hal-qcom \
+    libwpa_client \
     wificond \
     wpa_supplicant \
     wpa_supplicant.conf
